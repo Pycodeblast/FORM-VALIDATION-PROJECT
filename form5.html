@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <link rel="stylesheet" href="style2.css"/>
+</head>
+<body>
+    <form id="userForm">
+        <div class="inputgroup">
+        <label for="firstname">First Name:</label>
+        <input type="text" id="firstname"><br><br>
+       
+
+        
+        <label for="lastname">Last Name:</label>
+        <input type="text" id="lastname"><br><br>
+       
+        
+        <label for="email">Email:</label>
+<input type="email" id="email" autocomplete="email"><br><br>
+
+
+        <label for="checkbox">Checkbox:</label>
+        <input type="checkbox" id="checkbox"><br><br>
+
+
+        <label for="radio1">Option 1</label>
+<input type="radio" id="radio1" name="radio" value="Option 1" title="Option 1">
+ 
+   
+   
+<label for="radio2">Option 2</label>
+<input type="radio" id="radio2" name="radio" value="Option 2" title="Option 2"><br>
+
+
+        <label for="comment">Comment:</label><br>
+        <textarea id="comment" name="comment" rows="4" cols="50"></textarea><br><br>
+
+
+        <label for="dropdown">Dropdown:</label>
+        <select id="dropdown" name="dropdown">
+            <option value="Option 1">Option 1</option>
+            <option value="Option 2">Option 2</option>
+            <option value="Option 3">Option 3</option>
+        </select><br><br>
+</div>
+
+<button type="submit" value="Submit">Submit</button>
+<button type="button" value="Cancel" onclick="clearForm()">Cancel</button>
+    </form>
+    <div id="tableContainer"></div>
+    <script>
+        // Add an event listener to the form's submit event
+        document.getElementById("userForm").addEventListener("submit", function(event) {
+            event.preventDefault();  // Prevent the form from submitting normally
+    
+            clearErrorMessages();  // Clear any existing error messages
+    
+            if (validateForm()) {  // If the form is valid, create the table
+                createTable();
+            }
+        });
+    
+        function validateForm() {
+            // Get the values of the required fields
+            var firstname = document.getElementById("firstname").value;
+            var lastname = document.getElementById("lastname").value;
+            var email = document.getElementById("email").value;
+            var isValid = true;
+    
+            // Check if each required field is filled
+            if (firstname === "") {
+                showErrorMessage("firstname", "First Name is required.");
+                isValid = false;
+            }
+            if (lastname === "") {
+                showErrorMessage("lastname", "Last Name is required.");
+                isValid = false;
+            }
+            if (email === "") {
+                showErrorMessage("email", "Email is required.");
+                isValid = false;
+            }
+    
+            return isValid;  // Return the validity of the form
+        }
+    
+        function showErrorMessage(fieldId, message) {
+            // Create a span element to hold the error message
+            var span = document.createElement("span");
+            span.className = "error";  // Add a class for styling
+            span.textContent = message;  // Set the error message text
+            var field = document.getElementById(fieldId);  // Get the input field
+            field.parentNode.insertBefore(span, field.nextSibling);  // Insert the error message after the field
+        }
+    
+        function clearErrorMessages() {
+            // Remove all error messages from the document
+            var errorMessages = document.querySelectorAll(".error");
+            errorMessages.forEach(function(span) {
+                span.parentNode.removeChild(span);
+            });
+        }
+    
+        function clearForm() {
+            // Reset the form and clear any error messages
+            document.getElementById("userForm").reset();
+            clearErrorMessages();
+        }
+    
+        function createTable() {
+            // Create a table element
+            var table = document.createElement("table");
+    
+            // Create the table headers
+            var headers = ["Field", "Value"];
+            var headerRow = table.insertRow(0);
+            headers.forEach(function(header) {
+                var cell = headerRow.insertCell();
+                cell.textContent = header;
+            });
+    
+            // Get the form data
+            var data = {
+                "First Name": document.getElementById("firstname").value,
+                "Last Name": document.getElementById("lastname").value,
+                "Email": document.getElementById("email").value,
+                "Checkbox": document.getElementById("checkbox").checked ? "Checked" : "Unchecked",
+                "Radio": document.querySelector('input[name="radio"]:checked') ? document.querySelector('input[name="radio"]:checked').value : "Not selected",
+                "Comment": document.getElementById("comment").value,
+                "Dropdown": document.getElementById("dropdown").value
+            };
+    
+            // Add the form data to the table
+            Object.entries(data).forEach(function([field, value], index) {
+                var row = table.insertRow(index + 1);
+                var fieldCell = row.insertCell(0);
+                var valueCell = row.insertCell(1);
+                fieldCell.textContent = field;
+                valueCell.textContent = value;
+            });
+    
+            // Append the table to the tableContainer div
+            document.getElementById("tableContainer").appendChild(table);
+        }
+    </script>
+    
+</body>
+</html>
