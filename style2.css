@@ -1,0 +1,64 @@
+body{
+    background: rgb(180,58,169);
+background: linear-gradient(90deg, rgba(180,58,169,1) 9%, rgba(253,29,180,0.9500175070028011) 19%, rgba(252,173,69,1) 58%);
+font-family: sans-serif;
+}
+#userForm{
+
+    width: 400px;
+    margin: 20vh auto 0 auto;
+    background-color: whitesmoke;
+    border-radius: 5px;
+    padding: 30px;
+
+}
+#userForm button{
+    background-color: rgb(222, 25, 183);
+    color: aliceblue;
+    border-radius: 5px;
+    border: 1px solid rgb(214, 19, 117);
+    margin: 20px 0px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 20 px;
+}
+.inputgroup{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2px;
+}
+
+.inputgroup input{
+    border-radius: 5px;
+    font-size: 20px;
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid pink;
+}
+
+.inputgroup input:focus{
+    outline: 0;
+}
+
+#tableContainer{
+    margin-top: 20px;
+}
+
+table{
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+}
+
+th{
+    background-color: aliceblue;
+    border: 1px solid whitesmoke;
+    padding: 8px;
+    text-align: left;
+}
+
+td{
+    border:1px solid whitesmoke;
+    padding: 8px;
+    text-align: left;
+}
